@@ -32,7 +32,7 @@ git clone https://github.com/murat-yasar/zsh-t3-shortcuts \
 
 ### Add the plugin to .zshrc
 ```zsh
-plugins=(... zsh-t3-shortcuts)
+plugins=(plugin1 plugin2 ... zsh-t3-shortcuts)
 ```
 
 ### Reload
