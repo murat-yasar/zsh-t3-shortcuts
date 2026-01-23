@@ -1,36 +1,49 @@
+# TYPO3 directory shortcuts
+# =========================
 
-# Directory Shortcuts for TYPO3 projects
-# ======================================
+# Go up N directories (e.g. up 3)
+up() {
+  local count=${1:-1}
 
-# takes an integer and takes you up that amount in parent directories
-function up () {
-  local count=$1;
-  for ((i=0;i<$count;i++)) do cd ..; done
+  if ! [[ "$count" =~ '^[0-9]+$' ]]; then
+    echo "Usage: up <number>"
+    return 1
+  fi
+
+  for (( i = 0; i < count; i++ )); do
+    cd .. || return 1
+  done
 }
 
-# change directory to the project root of the current project
-function _pr() {
-    local current_dir=$(pwd)
-    while [[ "$current_dir" != "/" && "$current_dir" != "$HOME" ]]; do
-        if [[ -d "$current_dir/vendor" ]]; then
-            cd "$current_dir"
-            ls -l
-            return
-        fi
-        current_dir=$(dirname "$current_dir")
-    done
-    echo "Not in a project directory"
+# Go to TYPO3 project root (directory containing vendor/)
+t3pr() {
+  local current_dir="$PWD"
+
+  while [[ "$current_dir" != "/" && "$current_dir" != "$HOME" ]]; do
+    if [[ -d "$current_dir/vendor" ]]; then
+      cd "$current_dir" || return 1
+      ls -lah
+      return 0
+    fi
+    current_dir="${current_dir:h}"
+  done
+
+  echo "Not inside a TYPO3 project"
+  return 1
 }
 
-# change directory to the packages/site-package directory of the current project
-function _sp() {
-    local current_dir=$(pwd)
-    while [[ "$current_dir" != "/" && "$current_dir" != "$HOME" ]]; do
-        if [[ -d "$current_dir/packages/site-package" ]]; then
-            cd "$current_dir/packages/site-package"
-            return
-        fi
-        current_dir=$(dirname "$current_dir")
-    done
-    echo "Not in a project directory"
+# Go to packages/site-package
+t3sp() {
+  local current_dir="$PWD"
+
+  while [[ "$current_dir" != "/" && "$current_dir" != "$HOME" ]]; do
+    if [[ -d "$current_dir/packages/site-package" ]]; then
+      cd "$current_dir/packages/site-package" || return 1
+      return 0
+    fi
+    current_dir="${current_dir:h}"
+  done
+
+  echo "Not inside a TYPO3 project"
+  return 1
 }
