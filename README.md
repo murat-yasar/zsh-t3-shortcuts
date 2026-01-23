@@ -59,3 +59,10 @@ t3pr
 ```zsh
 t3sp
 ```
+
+
+## Requirements
+
+- Zsh
+
+- TYPO3 (v12 and higher) project structure
