@@ -40,8 +40,7 @@ plugins=(... zsh-t3-shortcuts)
 source ~/.zshrc
 ```
 
-
-## Commands
+##  Commands
 
 ### up <number>
 > Go up N directories.
