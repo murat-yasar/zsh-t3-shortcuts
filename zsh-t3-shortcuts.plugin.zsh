@@ -47,3 +47,34 @@ t3sp() {
   echo "Not inside a TYPO3 project"
   return 1
 }
+
+
+# TYPO3 CLI shortcuts
+# =========================
+
+# Clear cache
+t3cc() {
+  t3pr && ./vendor/bin/typo3 cache:flush
+}
+
+# Run DB updates
+t3dbu() {
+  t3pr && ./vendor/bin/typo3 database:updateschema
+}
+
+# Show current TYPO3 version
+t3ver() {
+  t3pr && ./vendor/bin/typo3 --version
+}
+
+# Composer install
+t3ci() {
+  t3pr && composer install
+}
+
+# Composer update
+t3cu() {
+  t3pr && composer update
+}
+
+
